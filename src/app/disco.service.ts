@@ -129,7 +129,9 @@ export class DiscoService {
       id: this.musicas.length + 1,
       titulo,
       idGenero: g.id,
-      artistas: listaArtistas
+      artistas: listaArtistas,
+      gostar: 0,
+      naoGostar: 0
     };
     this.musicas.push(musica);
     return musica;
@@ -243,4 +245,38 @@ export class DiscoService {
     }
     return this.artistas;
   }
+
+  gostar(musica){
+    let m = this.encontrarMusica(musica);
+    m.gostar +=1;
+    if (m.naoGostar > 0) {
+      m.naoGostar -= 1;
+    }
+  }
+
+  naogostar(musica){
+    let m = this.encontrarMusica(musica);
+    m.naoGostar +=1;
+    if (m.gostar > 0) {
+      m.gostar -= 1;
+    }
+  }
+
+  sugestoesg(musica) {
+    let listaSugestoes = [];
+    listaSugestoes = this.encontrarGenero(musica.genero.nome).musicas;
+    for (let artista of musica.artistas) {
+      for ( let musi of this.listaDeMusicasDoArtista(artista)) {
+        if (listaSugestoes.indexOf(musi) !== -1) {
+                  listaSugestoes.push(musi);
+        }
+      }
+    }
+    return listaSugestoes;
+  }
+
+  sugestoesn(musica) {
+
+  }
+
 }

@@ -9,8 +9,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MusicaComponent implements OnInit {
   musica = null;
+  sugestao = null;
 
   constructor(private disco: DiscoService, private route: ActivatedRoute) { }
+
+  sugerir(num) {
+    this.sugestao = num;
+  }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
